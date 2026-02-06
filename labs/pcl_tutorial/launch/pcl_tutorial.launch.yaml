@@ -1,0 +1,8 @@
+launch:
+  - node:
+      pkg: pcl_tutorial
+      exec: pcl_tutorial_node
+      name: pcl_tutorial_node
+      output: screen
+      param:
+        - $(find-pkg-share pcl_tutorial)/config/pcl_tutorial.yaml

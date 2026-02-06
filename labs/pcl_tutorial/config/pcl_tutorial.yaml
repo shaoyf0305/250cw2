@@ -1,0 +1,35 @@
+pcl_tutorial_node:
+  ros__parameters:
+    use_sim_time: true
+    input_topic: /r200/camera/depth_registered/points
+
+    output_cloud_topic: ~/filtered_cloud
+    output_cyl_pt_topic: ~/cyld_pt
+
+    # Filtering
+    enable_voxel: true
+    leaf_size: 0.01
+
+    enable_pass: false
+    pass_axis: x
+    pass_min: 0.0
+    pass_max: 0.7
+
+    enable_outlier: false
+    outlier_mean_k: 20
+    outlier_stddev: 1.0
+
+    # Segmentation
+    do_plane: false
+    do_cylinder: false
+
+    normal_k: 50
+    plane_normal_dist_weight: 0.1
+    plane_max_iterations: 100
+    plane_distance: 0.03
+
+    cylinder_normal_dist_weight: 0.1
+    cylinder_max_iterations: 10000
+    cylinder_distance: 0.05
+    cylinder_radius_min: 0.0
+    cylinder_radius_max: 0.1

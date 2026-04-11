@@ -10,6 +10,11 @@ solution is contained within the cw2_team_<your_team_number> package */
 #include <memory>
 #include <mutex>
 #include <string>
+
+#include <geometry_msgs/msg/point.hpp>
+#include <geometry_msgs/msg/point_stamped.hpp>
+#include <geometry_msgs/msg/pose.hpp>
+#include <geometry_msgs/msg/quaternion.hpp>
 #include <moveit/move_group_interface/move_group_interface.h>
 #include <moveit/planning_scene_interface/planning_scene_interface.h>
 #include <pcl/point_cloud.h>
@@ -45,6 +50,23 @@ public:
 
   void cloud_callback(const sensor_msgs::msg::PointCloud2::ConstSharedPtr msg);
 
+  // Task 1 pick-and-place (same motion pattern as comp0250 CW1).
+  geometry_msgs::msg::Quaternion make_top_down_q() const;
+  geometry_msgs::msg::Quaternion ee_orientation_for_shape(const std::string & shape) const;
+  bool move_arm_to_pose_joint(const geometry_msgs::msg::Pose & target_pose);
+  bool move_arm_linear_to(
+    const geometry_msgs::msg::Pose & target_pose, double eef_step = 0.01,
+    const char * step_name = "");
+  bool set_gripper_width(double width_m);
+  geometry_msgs::msg::Point transform_point_to_planning_frame(
+    const geometry_msgs::msg::Point & p, const std::string & source_frame);
+
+  // Task 2: move above object centroid, classify nought vs cross from depth cloud.
+  bool move_to_task2_observation_pose(const geometry_msgs::msg::PointStamped & object_loc);
+  std::string classify_shape_from_cloud(
+    const PointCPtr & cloud, const std::string & cloud_frame_id,
+    const geometry_msgs::msg::PointStamped & object_loc);
+
   rclcpp::Node::SharedPtr node_;
   rclcpp::Service<cw2_world_spawner::srv::Task1Service>::SharedPtr t1_service_;
   rclcpp::Service<cw2_world_spawner::srv::Task2Service>::SharedPtr t2_service_;
@@ -67,6 +89,35 @@ public:
 
   std::string pointcloud_topic_;
   bool pointcloud_qos_reliable_ = false;
+
+  // Task 1 tuning (defaults match CW1-style pick/place).
+  double pick_offset_z_ = 0.26;
+  double grasp_descent_z_ = 0.1;
+  double place_offset_z_ = 0.35;
+  double gripper_open_width_ = 0.09;
+  double gripper_grasp_width_ = 0.01;
+  double cartesian_eef_step_ = 0.01;
+  double cartesian_min_fraction_ = 0.7;
+
+  // Task 1 shape-aware grasp: planar offset from centroid in world XY (metres).
+  bool task1_apply_shape_xy_offset_ = true;
+  double nought_grasp_offset_world_x_ = 0.075;
+  double nought_grasp_offset_world_y_ = 0.0;
+  double cross_grasp_offset_world_x_ = 0.042;
+  double cross_grasp_offset_world_y_ = 0.0;
+  // Extra yaw (rad) about tool z applied for nought only; default +90° to align fingers with ring.
+  double nought_grasp_extra_yaw_rad_ = 1.57;
+
+  // Task 2 (shape ID): observation height above centroid (planning frame), inner-hole heuristic.
+  double task2_obs_height_above_centroid_m_ = 0.45;
+  int task2_settle_ms_ = 600;
+  double task2_inner_radius_m_ = 0.05;
+  double task2_ring_r_min_m_ = 0.06;
+  double task2_ring_r_max_m_ = 0.141;
+  double task2_ground_sample_radius_m_ = 0.16;
+  double task2_surface_above_ground_m_ = 0.02;
+  int task2_inner_min_points_cross_ = 28;
+  double task2_ring_inner_ratio_nought_min_ = 3.0;
 };
 
 #endif  // CW2_CLASS_H_

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(cw2_team_x)
+project(cw2_team_36)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -96,12 +96,12 @@ target_link_libraries(cw2_solution_node
   ${PROJECT_NAME}_cw2_class_lib
 )
 
-rosidl_get_typesupport_target(cw2_team_x_typesupport_target
+rosidl_get_typesupport_target(cw2_team_36_typesupport_target
   ${PROJECT_NAME} "rosidl_typesupport_cpp")
 target_link_libraries(${PROJECT_NAME}_cw2_class_lib
-  ${cw2_team_x_typesupport_target})
+  ${cw2_team_36_typesupport_target})
 target_link_libraries(cw2_solution_node
-  ${cw2_team_x_typesupport_target})
+  ${cw2_team_36_typesupport_target})
 
 install(TARGETS
   ${PROJECT_NAME}_cw2_class_lib

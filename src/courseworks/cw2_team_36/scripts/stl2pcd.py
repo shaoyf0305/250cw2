@@ -8,7 +8,7 @@ import os
 if __name__ == "__main__":
     
     # get path of the models folder (change to your team name!)
-    base_path = rospkg.RosPack().get_path('cw2_team_x')
+    base_path = rospkg.RosPack().get_path('cw2_team_36')
     base_path += "/models/"
     ext = ".STL"
     print("converting all .STL in :" + base_path)

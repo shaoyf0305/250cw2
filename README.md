@@ -92,16 +92,16 @@ ros2 service call /task cw1_world_spawner/srv/TaskSetup "{task_index: 2}"
 ros2 service call /task cw1_world_spawner/srv/TaskSetup "{task_index: 3}"
 ```
 
-## ROS 2 CW2 template launch: `cw2_team_x`
+## ROS 2 CW2 template launch: `cw2_team_36`
 
-Use the following commands to run your solution to CW2, replacing 'x' in cw2_team_x with your team number
+Use the following commands to run your solution to CW2 (rename the package folder to `cw2_team_<your_team_number>` if different).
 
 ```bash
 cd ros2_ws
 source /opt/ros/humble/setup.bash
 source install/setup.bash
 export PATH=/usr/bin:$PATH
-ros2 launch cw2_team_x run_solution.launch.py \
+ros2 launch cw2_team_36 run_solution.launch.py \
   use_gazebo_gui:=true use_rviz:=true
 ```
 

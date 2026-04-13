@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(cw1_team_x)
+project(cw1_team_36)
 
 if(POLICY CMP0074)
   cmake_policy(SET CMP0074 NEW)
@@ -19,6 +19,7 @@ find_package(moveit_core REQUIRED)
 find_package(moveit_msgs REQUIRED)
 find_package(moveit_ros_planning_interface REQUIRED)
 find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(pcl_ros REQUIRED)
 find_package(pcl_conversions REQUIRED)
@@ -53,6 +54,7 @@ ament_target_dependencies(${PROJECT_NAME}_cw1_class_lib
   moveit_msgs
   moveit_ros_planning_interface
   tf2
+  tf2_ros
   tf2_geometry_msgs
   pcl_ros
   pcl_conversions
@@ -75,6 +77,7 @@ ament_target_dependencies(cw1_solution_node
   moveit_msgs
   moveit_ros_planning_interface
   tf2
+  tf2_ros
   tf2_geometry_msgs
   pcl_ros
   pcl_conversions
@@ -86,12 +89,12 @@ target_link_libraries(cw1_solution_node
   ${PROJECT_NAME}_cw1_class_lib
 )
 
-rosidl_get_typesupport_target(cw1_team_x_typesupport_target
+rosidl_get_typesupport_target(cw1_team_36_typesupport_target
   ${PROJECT_NAME} "rosidl_typesupport_cpp")
 target_link_libraries(${PROJECT_NAME}_cw1_class_lib
-  ${cw1_team_x_typesupport_target})
+  ${cw1_team_36_typesupport_target})
 target_link_libraries(cw1_solution_node
-  ${cw1_team_x_typesupport_target})
+  ${cw1_team_36_typesupport_target})
 
 install(TARGETS
   ${PROJECT_NAME}_cw1_class_lib

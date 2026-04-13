@@ -62,12 +62,12 @@ def generate_launch_description():
         DeclareLaunchArgument('enable_task1_snap', default_value='false'),
         DeclareLaunchArgument('return_home_between_pick_place', default_value='false'),
         DeclareLaunchArgument('return_home_after_pick_place', default_value='false'),
-        DeclareLaunchArgument('pick_offset_z', default_value='0.12'),
+        DeclareLaunchArgument('pick_offset_z', default_value='0.36'),
         DeclareLaunchArgument('task3_pick_offset_z', default_value='0.13'),
-        DeclareLaunchArgument('place_offset_z', default_value='0.35'),
+        DeclareLaunchArgument('place_offset_z', default_value='0.30'),
         DeclareLaunchArgument('grasp_approach_offset_z', default_value='0.015'),
         DeclareLaunchArgument('post_grasp_lift_z', default_value='0.05'),
-        DeclareLaunchArgument('gripper_grasp_width', default_value='0.03'),
+        DeclareLaunchArgument('gripper_grasp_width', default_value='0.02'),
         DeclareLaunchArgument('task2_capture_enabled', default_value='false'),
         DeclareLaunchArgument('task2_capture_dir', default_value='/tmp/cw1_task2_capture'),
 
@@ -101,7 +101,7 @@ def generate_launch_description():
         ),
 
         Node(
-            package='cw1_team_x',
+            package='cw1_team_36',
             executable='cw1_solution_node',
             name='cw1_solution_node',
             output='screen',

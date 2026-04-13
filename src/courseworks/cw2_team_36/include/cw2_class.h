@@ -60,6 +60,16 @@ public:
   bool set_gripper_width(double width_m);
   geometry_msgs::msg::Point transform_point_to_planning_frame(
     const geometry_msgs::msg::Point & p, const std::string & source_frame);
+  geometry_msgs::msg::Quaternion ee_orientation_for_shape_with_world_yaw(
+    const std::string & shape, double world_yaw_rad) const;
+
+  bool capture_latest_cloud(PointCPtr & cloud, std::string & frame_id, double timeout_sec = 2.0);
+
+  bool estimate_object_yaw_from_cloud(
+    const PointCPtr & cloud,
+    const std::string & cloud_frame_id,
+    const geometry_msgs::msg::PointStamped & object_loc,
+    double & estimated_yaw_rad) const;
 
   // Task 2: move above object centroid, classify nought vs cross from depth cloud.
   bool move_to_task2_observation_pose(const geometry_msgs::msg::PointStamped & object_loc);
@@ -97,7 +107,7 @@ public:
   double gripper_open_width_ = 0.09;
   double gripper_grasp_width_ = 0.01;
   double cartesian_eef_step_ = 0.01;
-  double cartesian_min_fraction_ = 0.7;
+  double cartesian_min_fraction_ = 0.6;
 
   // Task 1 shape-aware grasp: planar offset from centroid in world XY (metres).
   bool task1_apply_shape_xy_offset_ = true;

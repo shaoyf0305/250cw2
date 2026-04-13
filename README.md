@@ -52,57 +52,25 @@ source install/setup.bash
 ```
 
 
-**YOU MUST RENAME THE DIRECTORY cw1_team_x to your team number and amend the following command appropriately**
-## ROS 2 launch: `cw1_team_x`
-
-Use this command to run your solution to the coursework:
-
-```bash
-cd ~/comp0250_S26_labs
-source /opt/ros/humble/setup.bash
-source install/setup.bash
-export PATH=/usr/bin:$PATH
-export RMW_FASTRTPS_USE_SHM=0
-ros2 launch cw1_team_x run_solution.launch.py \
-  use_gazebo_gui:=true use_rviz:=true \
-  enable_realsense:=true enable_camera_processing:=false \
-  control_mode:=effort
-```
-## ROS 2 command: Task 1
-
-```bash
-ros2 service call /task cw1_world_spawner/srv/TaskSetup "{task_index: 1}"
-```
-
-Task 1 scenario 2 only:
-
-```bash
-ros2 service call /task cw1_world_spawner/srv/TaskSetup "{task_index: 111}"
-```
-
-## ROS 2 test command: Task 2
-
-```bash
-ros2 service call /task cw1_world_spawner/srv/TaskSetup "{task_index: 2}"
-```
-
-## ROS 2 test command: Task 3
-
-```bash
-ros2 service call /task cw1_world_spawner/srv/TaskSetup "{task_index: 3}"
-```
-
 ## ROS 2 CW2 template launch: `cw2_team_36`
 
 Use the following commands to run your solution to CW2 (rename the package folder to `cw2_team_<your_team_number>` if different).
 
 ```bash
-cd ros2_ws
 source /opt/ros/humble/setup.bash
 source install/setup.bash
 export PATH=/usr/bin:$PATH
+```
+
+```bash
+colcon build --mixin release
+```
+
+```bash
 ros2 launch cw2_team_36 run_solution.launch.py \
-  use_gazebo_gui:=true use_rviz:=true
+  use_gazebo_gui:=true use_rviz:=false \
+  | grep --line-buffered '\[cw2_solution_node\]:' \
+  | sed -u 's/^.*\[cw2_solution_node\]: //'
 ```
 
 Trigger the template task callbacks:

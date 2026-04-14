@@ -55,9 +55,9 @@ public:
   geometry_msgs::msg::Quaternion ee_orientation_for_shape(const std::string & shape) const;
   bool move_arm_to_pose_joint(const geometry_msgs::msg::Pose & target_pose);
   bool move_arm_linear_to(
-    const geometry_msgs::msg::Pose & target_pose, double eef_step = 0.01,
-    const char * step_name = "");
-  bool set_gripper_width(double width_m);
+    const geometry_msgs::msg::Pose & target_pose,
+    double eef_step,
+    const char * step_name = nullptr);  bool set_gripper_width(double width_m);
   geometry_msgs::msg::Point transform_point_to_planning_frame(
     const geometry_msgs::msg::Point & p, const std::string & source_frame);
   geometry_msgs::msg::Quaternion ee_orientation_for_shape_with_world_yaw(
@@ -100,6 +100,15 @@ public:
   std::string pointcloud_topic_;
   bool pointcloud_qos_reliable_ = false;
 
+  std::string deep_scan(const geometry_msgs::msg::PointStamped & object_loc);
+  bool pick_and_place(
+  const geometry_msgs::msg::PointStamped & object_point,
+  const geometry_msgs::msg::PointStamped & goal_point,
+  const std::string & shape_type);
+
+std::vector<geometry_msgs::msg::PointStamped> rough_scan(
+  geometry_msgs::msg::PointStamped & basket_point);
+  
   // Task 1 tuning (defaults match CW1-style pick/place).
   double pick_offset_z_ = 0.26;
   double grasp_descent_z_ = 0.1;

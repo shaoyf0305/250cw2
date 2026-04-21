@@ -81,3 +81,10 @@ ros2 service call /task cw2_world_spawner/srv/TaskSetup "{task_index: 2}"
 ros2 service call /task cw2_world_spawner/srv/TaskSetup "{task_index: 3}"
 ```
 
+Debug scan
+```bash
+xdg-open /tmp/task3_map.svg
+pcl_viewer /tmp/task3_result.pcd
+pcl_viewer /tmp/task3_fused_world.pcd
+cat /tmp/task3_scan_summary.csv
+```

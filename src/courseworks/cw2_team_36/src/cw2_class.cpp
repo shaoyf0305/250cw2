@@ -2096,13 +2096,13 @@ bool cw2::pick_and_place(
     }
   }
 
-  // 最终抓取点：重定位中心 + offset
+  // Final grasping point: relocated center + offset
   geometry_msgs::msg::Point pick_world = localized_obj_world;
   pick_world.x += off_x;
   pick_world.y += off_y;
   pick_world.z = localized_obj_world.z;
 
-  // 放置点也应用同样 offset，保证相对抓取方式一致
+  // Place point also applies the same offset to ensure consistent relative grasping
   geometry_msgs::msg::Point goal_world = goal_point.point;
   goal_world.x += off_x;
   goal_world.y += off_y;
@@ -2119,7 +2119,7 @@ bool cw2::pick_and_place(
 
   geometry_msgs::msg::Pose grasp = pre_grasp;
 
-  // 保留你当前这套已经验证“Z 基本合适”的逻辑
+  // Retain your current verified "Z basically suitable" logic
   const double k_contact_below_top_z = -0.100;
   grasp.position.z = pick_p.z - k_contact_below_top_z;
 
